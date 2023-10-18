@@ -10,4 +10,7 @@ nohup.out
 __pycache__
 *.pyc
 
-dataset/
+dataset
+
+SegFormer/wandb/
+SegFormer/segformer-*
