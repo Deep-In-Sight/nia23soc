@@ -2,9 +2,10 @@ import os
 
 class CFG():
     def __init__(self):
-        self.projectName     = 'nia23soc-image-classification'
+        self.projectName     = 'nia23soc-image-segmentation'
         self.data_root       =  "./dataset" 
-        self.model_arch      = 'microsoft/cvt-13'
+        self.model_arch      = 'nvidia/segformer-b0-finetuned-cityscapes-1024-1024'
+        self.path2pretrained = f"pretrained/{self.model_arch}.pth"
         self.imgsize         = 512
 
         self.epochs          = 100
@@ -30,10 +31,10 @@ class CFG():
         self.weight_lm       = False
         self.accum_iter      = 1 # suppoprt to do batch accumulation for backprop with effectively larger batch size
         self.verbose_step    = 1
+        self.multiclass      = False
+        self.enable_patch    = False
+        self.include_normal  = False
 
-        self.num_classes      = 10
-        self.include_normal   = True
-        self.debug          = False
 
     def setExpName(self):
         return f"{self.model_arch}_{self.imgsize}px"
@@ -52,9 +53,6 @@ class CFG():
         elif self.scheduler == 'DecayingOscillation' or self.scheduler == 'DecayingOscillation_v2':
             self.osc_t       = self.epochs
             self.tau         = 0.7*0.693147
-
-        if self.include_normal:
-            self.num_classes += 1
 
         self.expName         = self.setExpName()
 
